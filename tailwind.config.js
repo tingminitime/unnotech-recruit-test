@@ -9,9 +9,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'myBlack': '#282c34',
         'myDarkGray': '#333',
-        'myLightBlue': '#4aa9ee',
-        'myDarkBlue': '#3272a1',
+        'myLightBlue': '#64C3FF',
+        'myBlue': '#4aa9ee',
+        'myDarkBlue': '#3190D5',
       },
       fontFamily: {
         'sans': ['Inter', 'Noto Sans TC', 'Helvetica Neue', ...defaultTheme.fontFamily.sans],
@@ -19,5 +21,8 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
 }
