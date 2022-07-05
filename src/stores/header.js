@@ -6,7 +6,12 @@ export const useHeaderStore = defineStore({
   id: 'header',
   state: () => ({
     headerName: defaultHeaderName,
-    backPath: '',
+    showBackButton: false,
+    backRoute: {
+      name: '',
+      params: {},
+      query: {},
+    },
   }),
   getters: {
   },
@@ -17,8 +22,5 @@ export const useHeaderStore = defineStore({
     resetHeaderName() {
       this.headerName = defaultHeaderName
     },
-    updateBackPath(backPath) {
-      this.backPath = backPath
-    }
   }
 })

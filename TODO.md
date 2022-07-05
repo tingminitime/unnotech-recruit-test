@@ -7,9 +7,12 @@ Project Description
 ### Todo
 
 - [ ] 新增、修改表單驗證  
-- [ ] 搜尋、排序功能  
+- [ ] 確認、取消修改 Modal 提示  
+- [ ] API Loading  
 - [ ] 多選刪除功能  
+- [ ] 搜尋、排序功能  
 - [ ] Dark Mode  
+- [ ] Catch 錯誤管理  
 
 ### In Progress
 

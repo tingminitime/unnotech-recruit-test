@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useHeaderStore } from '@/stores/header'
 
 const routes = [
@@ -21,12 +22,12 @@ const routes = [
         meta: {
           headerName: '書本列表',
           showBackButton: false,
-          recordRouteName: false
+          showCreateButton: true,
         },
         props: {
           default(route) {
             return {
-              // headerName: route.meta.headerName
+              headerName: route.meta.headerName,
             }
           }
         }
@@ -39,15 +40,14 @@ const routes = [
           default: () => import('@/views/BookDetail.vue')
         },
         meta: {
-          // headerName: '書本詳情',
           showBackButton: true,
-          recordRouteName: true
+          showEditButton: true,
         },
         props: {
           default(route) {
             return {
               // headerName: route.params.bookName,
-              bookId: route.params.bookId
+              bookId: route.params.bookId,
             }
           }
         },
@@ -62,7 +62,6 @@ const routes = [
         meta: {
           headerName: '編輯書本',
           showBackButton: true,
-          recordRouteName: false
         },
         props: {
           default(route) {
@@ -108,12 +107,20 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('beforeEach to:', to)
   const headerStore = useHeaderStore()
+  const { showBackButton } = storeToRefs(headerStore)
+
   if (to.meta.headerName) {
     headerStore.updateHeaderName(to.meta.headerName)
   } else {
     headerStore.resetHeaderName()
+  }
+
+  if (to.meta.showBackButton) {
+    console.log('showBackButton true')
+    showBackButton.value = true
+  } else {
+    showBackButton.value = false
   }
 
   next()

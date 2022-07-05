@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import './index.css'
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/animations/scale-subtle.css'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
 const app = createApp(App)

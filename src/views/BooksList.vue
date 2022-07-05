@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-5xl p-4">
     <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
       <li
-        v-for="(book, index) in bookListData"
+        v-for="(book, index) in booksListData"
         :key="book.id"
         class="mx-auto h-full min-h-[256px] w-full max-w-[256px] rounded-lg bg-white p-2 drop-shadow-lg md:min-h-[320px]"
       >
@@ -40,23 +40,22 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { getBookList } from '@api/books'
 
-const bookListData = ref([])
+const booksListData = ref([])
 
-const getBookListHandler = async () => {
+const fetchBookListHandler = async () => {
   try {
-    const res = await getBookList()
-    bookListData.value = res.data
-    console.log(bookListData.value)
+    const { data } = await getBookList()
+    booksListData.value = data
   } catch (err) {
     console.error(err)
   }
 }
 
 onMounted(() => {
-  getBookListHandler()
+  fetchBookListHandler()
 })
 
 </script>
