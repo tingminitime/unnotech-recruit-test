@@ -1,8 +1,16 @@
 <template>
-  <div></div>
+  <div v-if="show">
+    <div></div>
+  </div>
 </template>
 
 <script setup>
+defineProps({
+  show: {
+    type: Boolean,
+    default: false,
+  }
+})
 
 </script>
 

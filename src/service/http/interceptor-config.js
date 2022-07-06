@@ -1,12 +1,18 @@
 import { errorMessageHandler } from './errorHandler'
+import { storeToRefs } from 'pinia'
+import { useOverlayStore } from '@/stores/overlay'
 
 const setInterceptors = (axiosInstance) => {
+  const overlayStore = useOverlayStore()
+  const { isLoading } = storeToRefs(overlayStore)
   // Request interceptor
   axiosInstance.interceptors.request.use(
     (config) => {
+      isLoading.value = true
       return config
     },
     (error) => {
+      isLoading.value = false
       return Promise.reject(error)
     }
   )
@@ -14,6 +20,7 @@ const setInterceptors = (axiosInstance) => {
   // Response interceptor
   axiosInstance.interceptors.response.use(
     (config) => {
+      isLoading.value = false
       return config
     },
     (error) => {
@@ -21,6 +28,7 @@ const setInterceptors = (axiosInstance) => {
       if (response) {
         console.error(errorMessageHandler(response.status))
       }
+      isLoading.value = false
       return Promise.reject(error)
     }
   )

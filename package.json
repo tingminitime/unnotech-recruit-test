@@ -9,13 +9,16 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.6.5",
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
     "pinia": "^2.0.14",
     "tippy.js": "^6.3.7",
+    "vee-validate": "^4.5.11",
     "vue": "^3.2.37",
     "vue-loading-overlay": "5.0",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

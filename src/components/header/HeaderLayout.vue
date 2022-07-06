@@ -1,10 +1,14 @@
 <template>
   <div
     ref="headerRef"
-    class="sticky top-0 left-0 z-10 w-full bg-white drop-shadow-lg transition-transform duration-200"
+    class="sticky top-0 left-0 z-20 w-full bg-white drop-shadow-lg transition-transform duration-200"
     :class="{ '-translate-y-full': onScrollDown }"
   >
-    <div class="mx-auto max-w-5xl">
+    <div class="relative mx-auto max-w-5xl">
+      <!-- Header name -->
+      <h2 class="absolute top-1/2 left-1/2 w-[218px] -translate-x-1/2 -translate-y-1/2 text-center text-2xl font-medium text-myBlack line-clamp-1 md:w-80 md:text-3xl">
+        {{ headerName }}
+      </h2>
       <div class="flex h-14 items-center justify-between">
         <div class="h-full">
           <!-- Back button -->
@@ -22,31 +26,27 @@
             class="w-16"
           ></div>
         </div>
-        <!-- Header name -->
-        <h2 class="w-[218px] text-center text-2xl font-medium text-myBlack line-clamp-1 md:w-80 md:text-3xl">
-          {{ headerName }}
-        </h2>
         <div class="flex h-full">
           <!-- Create new book button -->
-          <button
+          <router-link
             v-if="$route.meta.showCreateButton"
-            type="button"
-            class="block h-full w-16 text-myBlack transition-colors md:hover:text-myBlue"
+            :to="{ name: 'BookCreate' }"
+            class="flex h-full w-16 items-center justify-center text-myBlack transition-colors md:hover:text-myBlue"
           >
             <span class="material-symbols-outlined align-middle text-4xl font-bold">
               add
             </span>
-          </button>
+          </router-link>
           <!-- Edit book info button -->
-          <button
+          <router-link
             v-if="$route.meta.showEditButton"
-            type="button"
-            class="block h-full w-16 text-myBlack transition-colors md:hover:text-myBlue"
+            :to="{ name: 'BookEdit', params: { bookId: $route.params.bookId } }"
+            class="flex h-full w-16 items-center justify-center text-myBlack transition-colors md:hover:text-myBlue"
           >
             <span class="material-symbols-rounded align-middle text-3xl">
               border_color
             </span>
-          </button>
+          </router-link>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import http from '@/service/http'
+import { parseParams } from './utils/parseParams'
 
 /**
  * [GET] Get books list
@@ -19,6 +20,9 @@ export const getBookData = (bookId) => {
  * [POST] create a book
  * @param {object} data - New book information
  */
+// export const createNewBook = (params) => {
+//   return http.post(`books?${parseParams(params)}`)
+// }
 export const createNewBook = (data) => {
   return http.post(`books`, data)
 }

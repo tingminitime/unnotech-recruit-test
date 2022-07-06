@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useHeaderStore } from '@/stores/header'
+import { useOverlayStore } from '@/stores/overlay'
 
 const routes = [
   {
@@ -46,18 +47,29 @@ const routes = [
         props: {
           default(route) {
             return {
-              // headerName: route.params.bookName,
               bookId: route.params.bookId,
             }
           }
         },
       },
+      // 新增書本
+      {
+        path: 'books/create',
+        name: 'BookCreate',
+        components: {
+          default: () => import('@/views/BookCreate.vue')
+        },
+        meta: {
+          headerName: '新增書本',
+          showBackButton: true,
+        },
+      },
       // 修改書本
       {
         path: 'books/:bookId/edit',
-        name: 'EditBook',
+        name: 'BookEdit',
         components: {
-          default: () => import('@/views/EditBook.vue')
+          default: () => import('@/views/BookEdit.vue')
         },
         meta: {
           headerName: '編輯書本',
@@ -66,7 +78,6 @@ const routes = [
         props: {
           default(route) {
             return {
-              // headerName: route.meta.headerName,
               bookId: route.params.bookId
             }
           }
@@ -124,6 +135,9 @@ router.beforeEach((to, from, next) => {
   }
 
   next()
+})
+
+router.afterEach((to, from, next) => {
 })
 
 export default router

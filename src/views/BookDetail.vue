@@ -7,7 +7,7 @@
           <button
             ref="copyBookTitleButton"
             type="button"
-            class="rounded-full py-1 px-2 transition-all duration-200 ease-out active:bg-gray-300"
+            class="rounded-full py-1 px-2 transition-all duration-200 ease-out hover:bg-gray-300 active:bg-gray-300"
             @click="copyHandler('bookTitle')"
           >
             <span class="material-symbols-rounded align-middle text-xl md:text-2xl">
@@ -25,7 +25,7 @@
           <button
             ref="copyBookAuthorButton"
             type="button"
-            class="rounded-full py-1 px-2 transition-all duration-200 ease-out active:bg-gray-300"
+            class="rounded-full py-1 px-2 transition-all duration-200 ease-out hover:bg-gray-300 active:bg-gray-300"
             @click="copyHandler('bookAuthor')"
           >
             <span class="material-symbols-rounded align-middle text-xl md:text-2xl">
@@ -49,22 +49,30 @@
       <div class="mx-auto mt-4 w-1/2">
         <button
           type="button"
-          class="block w-full rounded-lg bg-red-500 p-2 px-4 text-white hover:bg-red-600"
+          class="block w-full rounded-full bg-red-500 p-2 px-4 text-white hover:bg-red-600"
+          @click="deleteHandler"
         >
           刪除此書
         </button>
       </div>
     </div>
+    <AlertModal
+      v-bind="alertProps"
+    ></AlertModal>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useHeaderStore } from '@/stores/header'
+import { useOverlayStore } from '@/stores/overlay'
 import tippy from 'tippy.js'
+import AlertModal from '@/components/utils/AlertModal.vue'
 import { getBookData, deleteBookData } from '@api/books'
 
 const headerStore = useHeaderStore()
+const overlayStore = useOverlayStore()
+const { isAlert } = storeToRefs(overlayStore)
 
 const props = defineProps({
   headerName: {
@@ -81,6 +89,7 @@ const bookData = ref({})
 const copyBookTitleButton = ref(null)
 const copyBookAuthorButton = ref(null)
 const copyContent = ref('')
+const alertProps = ref({})
 
 const fetchBookDataHandler = async () => {
   try {
@@ -110,6 +119,14 @@ const copyHandler = (copyTarget) => {
       break
     default:
       break
+  }
+}
+
+const deleteHandler = () => {
+  isAlert.value = true
+  alertProps.value = {
+    alertTitle: '確認新增 ?',
+    confirmTodo: createNewBookHandler(bookInfo),
   }
 }
 
