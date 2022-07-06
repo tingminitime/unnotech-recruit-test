@@ -1,6 +1,15 @@
 <template>
   <div class="mx-auto max-w-xl p-4">
     <div class="flex flex-col gap-4">
+      <div class="rounded-lg bg-white p-4 drop-shadow-md">
+        <div class="aspect-w-4 aspect-h-3 block overflow-hidden rounded-lg">
+          <img
+            class="w-full object-cover"
+            :src="`https://picsum.photos/id/${bookId}/200/300`"
+            alt="book cover image"
+          >
+        </div>
+      </div>
       <div class="rounded-lg bg-white px-4 py-2 drop-shadow-md">
         <div class="flex items-center justify-between text-gray-700">
           <span>名稱</span>
@@ -64,12 +73,15 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useHeaderStore } from '@/stores/header'
 import { useOverlayStore } from '@/stores/overlay'
 import tippy from 'tippy.js'
 import AlertModal from '@/components/utils/AlertModal.vue'
 import { getBookData, deleteBookData } from '@api/books'
 
+const router = useRouter()
 const headerStore = useHeaderStore()
 const overlayStore = useOverlayStore()
 const { isAlert } = storeToRefs(overlayStore)
@@ -98,6 +110,7 @@ const fetchBookDataHandler = async () => {
     headerStore.updateHeaderName(data.title)
   } catch (err) {
     console.error(err)
+    router.push({ name: 'NotFound' })
   }
 }
 
@@ -122,11 +135,23 @@ const copyHandler = (copyTarget) => {
   }
 }
 
+const deleteBookHandler = (bookId) => {
+  return async () => {
+    try {
+      const { data } = await deleteBookData(bookId)
+      console.log(data)
+      router.push({ name: 'BookDetail', params: { bookId } })
+    } catch (err) {
+      console.error('刪除失敗', err)
+    }
+  }
+}
+
 const deleteHandler = () => {
   isAlert.value = true
   alertProps.value = {
-    alertTitle: '確認新增 ?',
-    confirmTodo: createNewBookHandler(bookInfo),
+    alertTitle: '確定刪除此書 ?',
+    confirmTodo: deleteBookHandler(props.bookId),
   }
 }
 

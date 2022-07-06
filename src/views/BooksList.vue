@@ -1,49 +1,48 @@
 <template>
   <div class="mx-auto max-w-5xl p-4">
     <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
-      <li
-        v-for="(book, index) in booksListData"
+      <BookCard
+        v-for="book in booksListData"
         :key="book.id"
-        class="mx-auto h-full min-h-[256px] w-full max-w-[256px] rounded-lg bg-white p-2 drop-shadow-lg md:min-h-[320px]"
-      >
-        <div class="flex h-full flex-col items-center justify-between">
-          <div class="flex h-full w-full flex-col">
-            <router-link
-              class="aspect-w-4 aspect-h-3 mb-2 block overflow-hidden rounded-lg"
-              :to="{ name: 'BookDetail', params: { bookId: book.id } }"
-            >
-              <img
-                class="w-full object-cover"
-                :src="`https://picsum.photos/200/300?random=${index}`"
-                alt="book cover image"
-              >
-            </router-link>
-            <div class="flex grow flex-col">
-              <h3 class="mb-1 h-10 text-sm line-clamp-2 md:h-12 md:text-base">
-                {{ book.title }}
-              </h3>
-              <p class="border-t border-gray-200 py-1 text-xs font-medium text-black/75 md:text-sm">
-                <span class="line-clamp-1">作者 : {{ book.author }}</span>
-              </p>
-            </div>
-          </div>
-          <router-link
-            class="block w-full rounded-lg bg-myBlue p-1.5 text-center text-white shadow transition-all hover:-translate-y-0.5 hover:bg-myLightBlue hover:shadow-md md:p-2"
-            :to="{ name: 'BookDetail', params: { bookId: book.id } }"
-          >
-            <span class="tracking-wider">查看更多</span>
-          </router-link>
-        </div>
-      </li>
+        :book-id="book.id"
+        :book-title="book.title"
+        :book-author="book.author"
+        :quick-select="selectMode"
+        @select-mode="selectModeHandler"
+        @select-target="selectHandler"
+      ></BookCard>
     </ul>
+    <div class="fixed bottom-8 left-1/2 z-20 flex w-full max-w-[172px] -translate-x-1/2 items-center justify-around rounded-lg bg-white px-4 py-2 drop-shadow-lg">
+      <span class="inline-block text-myBlack">已選取 {{ selectBooks.length }} 個</span>
+      <button
+        type="button"
+        class="flex h-9 w-9 items-center justify-center rounded-full p-2 text-red-500 transition-all duration-200 ease-out hover:bg-gray-300 active:bg-gray-300"
+        @click="deleteManyHandler"
+      >
+        <span class="material-symbols-rounded align-middle">
+          delete
+        </span>
+      </button>
+    </div>
+    <AlertModal v-bind="alertProps"></AlertModal>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useOverlayStore } from '@/stores/overlay'
+import BookCard from '@/components/books/BookCard.vue'
+import AlertModal from '@/components/utils/AlertModal.vue'
 import { getBookList } from '@api/books'
 
+const overlayStore = useOverlayStore()
+const { isAlert } = storeToRefs(overlayStore)
+
 const booksListData = ref([])
+const selectMode = ref(false)
+const selectBooks = ref([])
+const alertProps = ref({})
 
 const fetchBookListHandler = async () => {
   try {
@@ -52,6 +51,28 @@ const fetchBookListHandler = async () => {
   } catch (err) {
     console.error(err)
   }
+}
+
+const selectModeHandler = (status) => {
+  selectMode.value = status
+}
+
+const selectHandler = (bookId) => {
+  const bookIndex = selectBooks.value.findIndex(id => id === bookId)
+  if (bookIndex !== -1) {
+    selectBooks.value.splice(bookIndex, 1)
+  } else {
+    selectBooks.value.push(bookId)
+  }
+
+  if (selectBooks.value.length === 0) {
+    selectMode.value = false
+  }
+  console.log(selectBooks.value)
+}
+
+const deleteManyHandler = () => {
+
 }
 
 onMounted(() => {

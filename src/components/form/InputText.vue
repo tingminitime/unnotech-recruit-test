@@ -48,7 +48,7 @@ const props = defineProps({
   requiredText: {
     type: String,
     default: ''
-  }
+  },
 })
 
 const emit = defineEmits(['update:modelValue', 'errors-info'])
@@ -61,7 +61,7 @@ const { meta, errors } = useForm({
   validationSchema: schema,
 })
 
-const { handleChange, handleBlur } = useField(props.inputName)
+const { handleChange } = useField(props.inputName)
 
 const inputHandler = (e) => {
   handleChange(e)
@@ -69,7 +69,8 @@ const inputHandler = (e) => {
 }
 
 const blurHandler = (e) => {
-  emit('errors-info', { [props.inputName]: meta.value.valid })
+  const valid = Object.keys(errors.value).length === 0
+  emit('errors-info', { [props.inputName]: valid })
 }
 
 </script>

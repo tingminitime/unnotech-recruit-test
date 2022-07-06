@@ -13,7 +13,7 @@
         <div class="h-full">
           <!-- Back button -->
           <router-link
-            v-show="showBackButton"
+            v-if="showBackButton"
             :to="backRoute"
             class="flex h-full w-16 items-center justify-center text-myDarkGray transition-colors md:hover:text-myBlue"
           >
@@ -22,7 +22,7 @@
             </span>
           </router-link>
           <div
-            v-show="!showBackButton"
+            v-else
             class="w-16"
           ></div>
         </div>

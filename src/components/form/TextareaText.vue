@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import _ from 'lodash'
@@ -63,13 +63,17 @@ const textLength = ref(0)
 
 const inputHandler = _.throttle((e) => {
   handleChange(e)
-  textLength.value = e.target.value.length
   emit('update:modelValue', e.target.value)
-}, 500)
+}, 1000)
 
 const blurHandler = (e) => {
   emit('errors-info', { [props.inputName]: meta.value.valid })
 }
+
+watch(() => props.modelValue, (newVal) => {
+  console.log('watch')
+  textLength.value = props.modelValue.length
+})
 
 </script>
 

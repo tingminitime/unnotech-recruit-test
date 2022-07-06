@@ -91,6 +91,10 @@ const routes = [
       {
         path: 'error',
         name: 'NotFound',
+        meta: {
+          headerName: '找不到頁面',
+          showBackButton: true,
+        },
         components: {
           default: () => import('@/views/Exceptions/NotFound.vue')
         }
@@ -128,16 +132,12 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta.showBackButton) {
-    console.log('showBackButton true')
     showBackButton.value = true
   } else {
     showBackButton.value = false
   }
 
   next()
-})
-
-router.afterEach((to, from, next) => {
 })
 
 export default router

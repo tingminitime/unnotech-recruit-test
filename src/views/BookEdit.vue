@@ -3,7 +3,6 @@
     <div class="flex flex-col gap-4">
       <InputText
         v-model="bookInfo.title"
-        :focus="true"
         input-title="名稱"
         input-name="title"
         placeholder-text="請輸入書名"
@@ -12,7 +11,6 @@
       ></InputText>
       <InputText
         v-model="bookInfo.author"
-        :focus="true"
         input-title="作者"
         input-name="author"
         placeholder-text="請輸入作者"
@@ -79,8 +77,8 @@ const bookInfo = reactive({
 })
 
 const bookInfoValidation = ref({
-  title: false,
-  author: false,
+  title: true,
+  author: true,
   description: true,
 })
 
@@ -112,17 +110,23 @@ const isBookInfoValid = computed(() => {
 })
 
 const fetchBookData = async (bookId) => {
-  const { data } = await getBookData(bookId)
-  const { title, author, description } = data
-  bookInfo.title = title || ''
-  bookInfo.author = author || ''
-  bookInfo.description = description || ''
+  try {
+    const { data } = await getBookData(bookId)
+    const { title, author, description } = data
+    headerStore.updateHeaderName(title)
+    bookInfo.title = title || ''
+    bookInfo.author = author || ''
+    bookInfo.description = description || ''
+  } catch (err) {
+    console.error(err)
+    router.push({ name: 'NotFound' })
+  }
 }
 
-const editBookHandler = (bookInfo) => {
+const editBookHandler = (bookId, bookInfo) => {
   return async () => {
     try {
-      const { data } = await updateBookData(props.bookId, bookInfo)
+      const { data } = await updateBookData(bookId, bookInfo)
       router.push({ name: 'BookDetail', params: { bookId: data.id } })
     } catch (err) {
       console.error('修改失敗', err)
@@ -135,7 +139,7 @@ const editHandler = () => {
   isAlert.value = true
   alertProps.value = {
     alertTitle: '確認修改 ?',
-    confirmTodo: editBookHandler(bookInfo),
+    confirmTodo: editBookHandler(props.bookId, bookInfo),
   }
 }
 

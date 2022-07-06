@@ -6,9 +6,6 @@ Project Description
 
 ### Todo
 
-- [ ] 確認、取消修改 Modal 提示  
-- [ ] API Loading  
-- [ ] 多選刪除功能  
 - [ ] 搜尋、排序功能  
 - [ ] Dark Mode  
 - [ ] Catch 錯誤管理  
@@ -16,11 +13,14 @@ Project Description
 
 ### In Progress
 
-- [ ] 新增、修改表單驗證  
-- [ ] api 串接  
+- [ ] 多選刪除功能  
 
 ### Done ✓
 
+- [x] 確認、取消修改 Modal 提示  
+- [x] 新增、修改表單驗證  
+- [x] API Loading  
+- [x] api 串接  
 - [x] back button 動態改成固定  
 - [x] 書本詳情顯示書本名稱  
 - [x] axios 封裝  
