@@ -4,7 +4,6 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import Notifications from 'notiwind'
-import { notify } from "notiwind"
 import './index.css'
 import '@/assets/sass/skeleton.sass'
 import 'tippy.js/dist/tippy.css'

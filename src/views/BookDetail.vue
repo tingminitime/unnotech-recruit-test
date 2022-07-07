@@ -4,9 +4,8 @@
       <div class="rounded-lg bg-white p-4 drop-shadow-md">
         <div class="aspect-w-4 aspect-h-3 block overflow-hidden rounded-lg">
           <img
+            v-img-src="`https://picsum.photos/id/${bookId}/200/300`"
             class="w-full object-cover"
-            :src="`https://picsum.photos/id/${bookId}/200/300`"
-            alt="book cover image"
           >
         </div>
       </div>
