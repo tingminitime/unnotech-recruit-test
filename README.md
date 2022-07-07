@@ -146,6 +146,9 @@ npm run build
 <br>
 
 ## 可新增、優化功能
+### Web History Mode
+Vue Router 使用 History Mode 將 URL 的 # 移除。
+
 ### 多選刪除功能
 優化行動裝置、電腦裝置對應不同功能，進入多選模式對查看更多、圖片點選導頁 disabled。
 
