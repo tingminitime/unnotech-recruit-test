@@ -1,14 +1,14 @@
 # unnotech-recruit-test
 
-This template should help get you started developing with Vue 3 in Vite.
+(Unnotech 徵才小專案)[https://tingminitime.github.io/unnotech-recruit-test/]
 
-## Recommended IDE Setup
+## IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- **VSCode**
+- **Volar**
+- **ESLint**
 
 ## Project Setup
 
@@ -28,8 +28,11 @@ npm run dev
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+---
 
-```sh
-npm run lint
-```
+### Framework
+- **Vitawind :** v2.0.0
+- **Vite :** v2.7.2
+- **Vue3 :** v3.2.25
+- **Tailwind CSS :** v3.x
+- **Nodejs :** v16.13.1
