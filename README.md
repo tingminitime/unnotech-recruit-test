@@ -1,6 +1,6 @@
 # unnotech-recruit-test
 
-(Unnotech 徵才小專案)[https://tingminitime.github.io/unnotech-recruit-test/]
+[Unnotech 徵才小專案](https://tingminitime.github.io/unnotech-recruit-test/)
 
 ## IDE Setup
 
