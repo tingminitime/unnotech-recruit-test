@@ -77,6 +77,7 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useHeaderStore } from '@/stores/header'
 import { useOverlayStore } from '@/stores/overlay'
+import { notify } from 'notiwind'
 import tippy from 'tippy.js'
 import AlertModal from '@/components/utils/AlertModal.vue'
 import { getBookData, deleteBookData } from '@api/books'
@@ -138,9 +139,12 @@ const copyHandler = (copyTarget) => {
 const deleteBookHandler = (bookId) => {
   return async () => {
     try {
-      const { data } = await deleteBookData(bookId)
-      console.log(data)
-      router.push({ name: 'BookDetail', params: { bookId } })
+      await deleteBookData(bookId)
+      notify({
+        group: 'success',
+        title: '刪除成功'
+      })
+      router.push({ name: 'BooksList' })
     } catch (err) {
       console.error('刪除失敗', err)
     }

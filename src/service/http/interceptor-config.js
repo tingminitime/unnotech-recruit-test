@@ -1,6 +1,7 @@
 import { errorMessageHandler } from './errorHandler'
 import { storeToRefs } from 'pinia'
 import { useOverlayStore } from '@/stores/overlay'
+import { notify } from "notiwind"
 
 const setInterceptors = (axiosInstance) => {
   const overlayStore = useOverlayStore()
@@ -27,6 +28,10 @@ const setInterceptors = (axiosInstance) => {
       const { response } = error
       if (response) {
         console.error(errorMessageHandler(response.status))
+        notify({
+          group: 'error',
+          title: `伺服器錯誤 (${response.status})`
+        })
       }
       isLoading.value = false
       return Promise.reject(error)

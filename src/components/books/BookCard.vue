@@ -14,16 +14,15 @@
           :to="{ name: 'BookDetail', params: { bookId: bookId } }"
         >
           <img
+            v-img-src="`https://picsum.photos/id/${bookId}/200/300`"
             class="w-full object-cover"
-            :src="`https://picsum.photos/id/${bookId}/200/300`"
-            alt="book cover image"
           >
         </router-link>
         <div class="flex grow flex-col">
-          <h3 class="mb-1 h-10 text-sm line-clamp-2 md:h-12 md:text-base">
+          <h3 class="mb-1 h-10 select-none text-sm line-clamp-2 md:h-12 md:text-base">
             {{ bookTitle }}
           </h3>
-          <p class="border-t border-gray-200 py-1 text-xs font-medium text-black/75 md:text-sm">
+          <p class="select-none border-t border-gray-200 py-1 text-xs font-medium text-black/75 md:text-sm">
             <span class="line-clamp-1">作者 : {{ bookAuthor }}</span>
           </p>
         </div>
@@ -39,7 +38,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   bookId: {
@@ -64,31 +63,29 @@ const emit = defineEmits(['select-mode', 'select-target'])
 
 const isSelected = ref(false)
 const selectedEl = ref(null)
-// const longPressProcess = ref(true)
 
 const cancelPressHandler = (el) => {
-  console.log('cancelPressHandler')
   selectedEl.value = el
   selectedEl.value.addEventListener('click', pressHandler)
 }
 
-const pressHandler = () => {
-  console.log('pressHandler')
-  emit('select-mode', true)
-  console.log('bookId', props.bookId)
-  emit('select-target', props.bookId)
+const pressHandler = (e) => {
+  e.preventDefault()
   if (props.quickSelect) {
     isSelected.value = !isSelected.value
+    emit('select-target', props.bookId)
   }
 }
 
 const longPressHandler = (el) => {
-  isSelected.value = true
+  emit('select-mode', true)
 }
 
-// onBeforeUnmount(() => {
-//   selectedEl.value.removeEventListener('click', pressHandler)
-// })
+watch(() => props.quickSelect, (newVal) => {
+  if (!newVal) {
+    isSelected.value = newVal
+  }
+})
 
 </script>
 

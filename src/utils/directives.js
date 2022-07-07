@@ -1,3 +1,5 @@
+import emptyImage from '@img/empty-image.jpg'
+
 export const focus = {
   mounted(el, binding) {
     if (binding.value) {
@@ -5,27 +7,6 @@ export const focus = {
     }
   }
 }
-
-// let pressTimer = null
-// let handler
-// let startPress = (e) => {
-//   if (e.type === 'click' && e.button !== 0) {
-//     return
-//   }
-
-//   if (pressTimer === null) {
-//     pressTimer = setTimeout(() => {
-//       handler(e)
-//     }, 1000)
-//   }
-// }
-
-// let cancelPress = (e) => {
-//   if (pressTimer !== null) {
-//     clearTimeout(pressTimer)
-//     pressTimer = null
-//   }
-// }
 
 export const longPress = {
   mounted(el, binding) {
@@ -84,13 +65,35 @@ export const press = {
   }
 }
 
-export const skeletonSrc = {
+export const imgSrc = {
   mounted(el, binding) {
-    // Press run function
-    const clickHandler = (e) => {
-      binding.value(el)
+    el.classList.add('load')
+    if (binding.value) {
+      const img = new Image()
+      img.src = binding.value
+      img.onload = () => {
+        el.classList.remove('load')
+        el.src = binding.value
+      }
+      img.onerror = () => {
+        el.classList.remove('load')
+        el.src = emptyImage
+      }
     }
-
-    el.addEventListener('click', clickHandler)
+  },
+  updated(el, binding) {
+    el.classList.add('load')
+    if (binding.value) {
+      const img = new Image()
+      img.src = binding.value
+      img.onload = () => {
+        el.classList.remove('load')
+        el.src = binding.value
+      }
+      img.onerror = () => {
+        el.classList.remove('load')
+        el.src = emptyImage
+      }
+    }
   }
 }

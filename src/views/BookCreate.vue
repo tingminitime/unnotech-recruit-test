@@ -54,6 +54,7 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useHeaderStore } from '@/stores/header'
 import { useOverlayStore } from '@/stores/overlay'
+import { notify } from "notiwind"
 import InputText from '@/components/form/InputText.vue'
 import TextareaText from '@/components/form/TextareaText.vue'
 import AlertModal from '@/components/utils/AlertModal.vue'
@@ -108,6 +109,10 @@ const createNewBookHandler = (bookInfo) => {
   return async () => {
     try {
       const { data } = await createNewBook(bookInfo)
+      notify({
+        group: 'success',
+        title: '新增成功'
+      })
       router.push({ name: 'BookDetail', params: { bookId: data.id } })
     } catch (err) {
       console.error('新增失敗', err)

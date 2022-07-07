@@ -9,7 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@api': fileURLToPath(new URL('./src/service/api', import.meta.url))
+      '@api': fileURLToPath(new URL('./src/service/api', import.meta.url)),
+      '@img': fileURLToPath(new URL('./src/assets/images', import.meta.url)),
     }
   },
   css: {
@@ -22,7 +23,7 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        // 移除 console
+        // Remove console
         drop_console: true,
         drop_debugger: true,
       },

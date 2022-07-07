@@ -71,7 +71,6 @@ const blurHandler = (e) => {
 }
 
 watch(() => props.modelValue, (newVal) => {
-  console.log('watch')
   textLength.value = props.modelValue.length
 })
 
