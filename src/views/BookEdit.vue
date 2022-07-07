@@ -88,7 +88,8 @@ const alertProps = ref({})
 const setBackRoute = () => {
   headerStore.$patch(state => {
     state.backRoute = {
-      name: 'BooksList'
+      name: 'BookDetail',
+      params: { bookId: props.bookId },
     }
   })
 }
