@@ -32,9 +32,8 @@ npm run build
 ---
 
 ## Framework
-- **Vitawind :** v2.0.0
-- **Vite :** v2.7.2
-- **Vue3 :** v3.2.25
+- **Vite :** v2.9.12
+- **Vue3 :** v3.2.37
 - **Tailwind CSS :** v3.x
 - **Nodejs :** v16.13.1
 
