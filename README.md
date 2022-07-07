@@ -11,6 +11,7 @@
 - **ESLint**
 
 ## Project Setup
+請參考 [env.example](https://github.com/tingminitime/unnotech-recruit-test/blob/main/env.example) 在專案根目錄新增 .env 設置環境變數。
 
 ```sh
 npm install
