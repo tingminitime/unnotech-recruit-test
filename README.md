@@ -131,6 +131,7 @@ npm run build
 - eslint :
   設定 Vue 撰寫規範及 Tailwind 排序規範
 
+<br>
 
 ## 開發困境
 ### Header 元件該不該在每個頁面 import 使用
@@ -144,5 +145,19 @@ npm run build
 
 <br>
 
+## 可新增、優化功能
+### 多選刪除功能
+優化行動裝置、電腦裝置對應不同功能，進入多選模式對查看更多、圖片點選導頁 disabled。
+
+### 文字 Skeleton
+文字同樣加入 Skeleton 實作。
+
+### Dark Mode
+使用 Tailwind 實作 Dark Mode
+
+<br>
+
 ## 結語
 感謝 Unnotech 提供給我練功的機會，期望有機會能參與面試 !
+
+<br>
