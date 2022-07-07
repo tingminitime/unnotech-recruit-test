@@ -150,6 +150,7 @@ const selectHandler = (bookId) => {
 const cancelSelectModeHandler = () => {
   selectedBooks.value = []
   selectMode.value = false
+  headerStore.resetHeaderName()
 }
 
 const deleteManyPromise = (deleteIds) => {
